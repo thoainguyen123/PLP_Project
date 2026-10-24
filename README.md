@@ -2,6 +2,14 @@
 
 Prototype quản lý pháp lý dự án theo giao diện NovaGroup.
 
+## Bản demo online
+
+https://thoainguyen123.github.io/PLP_Project/
+
+Màn hình đăng nhập: https://thoainguyen123.github.io/PLP_Project/login.html
+
+GitHub Pages phục vụ giao diện tĩnh; chatbot AI và các API Python cần máy chủ riêng.
+
 ## Chạy giao diện
 
 Mở `login.html` hoặc `index.html` bằng Edge/Chrome. Đăng nhập, quên mật khẩu và đặt lại mật khẩu là luồng minh họa.
