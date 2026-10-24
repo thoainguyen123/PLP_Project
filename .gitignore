@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+provider.json
+*credentials*
+*token*
+archive_files/
+.tmp-ocr/
+Research/
+node_modules/
+NOVA_GROUP_PLP_Prototype.html
+NOVA_GROUP_PLP_Prototype.zip
+prototype-*.png
+verification*.json

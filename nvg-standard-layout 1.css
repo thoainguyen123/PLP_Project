@@ -1,0 +1,902 @@
+/**
+ * ==============================================================================
+ * NOVAGROUP STANDARD UI DESIGN SYSTEM & LAYOUT SHELL
+ * Version: 1.0.0 (2026 Baseline)
+ * Based on Figma Blueprint: OMP & NVG Enterprise Standard Layout
+ * 
+ * Elements Included:
+ *   - Left: Standard Sidebar (220px, #02284C) with Logo, Slide Menu, Submenu & Footer
+ *   - Top:  Standard Header (60px, #FFFFFF) with Toggle, Breadcrumbs, Search, Noti, Profile & AM
+ *   - Bot:  Sidebar Footer (64px, #02203C) + System Bottom Status Bar (32px, #FFFFFF)
+ *   - Main: Clean Canvas Shell (#EDEEEF) ready for any business module
+ * ==============================================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@600;700;800&family=Public+Sans:wght@500;600;700;800&display=swap');
+
+:root {
+  /* ---------------------------------------------------------
+   * COLOR TOKENS (FIGMA EXTRACTED)
+   * --------------------------------------------------------- */
+  --nvg-canvas-bg: #EDEEEF;
+  
+  /* Sidebar (Left) */
+  --nvg-sidebar-width: 220px;
+  --nvg-sidebar-width-collapsed: 68px;
+  --nvg-sidebar-bg: #02284C;              /* BLUE/B3 */
+  --nvg-sidebar-footer-bg: #02203C;       /* Darker Navy */
+  --nvg-sidebar-border-divider: #334759;  /* Frame 34822 border */
+  --nvg-sidebar-footer-border: #667286;   /* Frame 188 border */
+  --nvg-sidebar-text-main: #E8E9F0;       /* Menu text */
+  --nvg-sidebar-text-muted: #96A8B7;      /* Submenu item text */
+  --nvg-sidebar-text-subtle: #A5B9C9;
+  --nvg-sidebar-text-dim: #7B8088;        /* Section header WORKSPACE */
+  --nvg-sidebar-text-footer: #697391;     /* Version text */
+  --nvg-sidebar-chevron: #D4D9DD;
+  
+  /* Active Submenu Highlight */
+  --nvg-sub-active-gradient: linear-gradient(90deg, #8BC141 0%, rgba(193, 239, 155, 0.1) 100%);
+  --nvg-accent-green: #8BC141;
+  
+  /* Topbar (Top) */
+  --nvg-header-height: 60px;
+  --nvg-header-bg: #FFFFFF;
+  --nvg-header-border: #D9D9D9;
+  --nvg-search-border: #F0F2F5;
+  --nvg-search-placeholder: #A9AFB5;
+  --nvg-noti-icon-color: #667286;
+  --nvg-noti-badge-bg: #FF0037;
+  --nvg-noti-badge-glow: rgba(249, 60, 101, 0.45);
+  
+  /* Profile & Typography */
+  --nvg-user-name: #383838;
+  --nvg-user-role: #ADAFB4;
+  --nvg-user-chevron: #667286;
+  --nvg-am-badge-bg: #02284C;
+  --nvg-am-badge-gold: #C59B27;
+  
+  /* Bottom Bar (Bot) */
+  --nvg-botbar-height: 32px;
+  --nvg-botbar-bg: #FFFFFF;
+  --nvg-botbar-border: #D9D9D9;
+  --nvg-botbar-text: #667286;
+  
+  /* Fonts */
+  --nvg-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --nvg-font-brand: 'Public Sans', 'Inter', sans-serif;
+  --nvg-font-num: 'Nunito Sans', 'Inter', sans-serif;
+
+  /* Transitions & Shadows */
+  --nvg-transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --nvg-shadow-toggle: 0px 0px 4px rgba(0, 0, 0, 0.15);
+  --nvg-shadow-card: 0px 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* ---------------------------------------------------------
+ * BASE RESET
+ * --------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--nvg-font-sans);
+  background-color: var(--nvg-canvas-bg);
+  color: #1C212C;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------
+ * MASTER APP CONTAINER (FLEXIBLE FULL-SCREEN CANVAS)
+ * --------------------------------------------------------- */
+.nvg-app-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--nvg-canvas-bg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* =========================================================
+ * 1. LEFT: STANDARD SIDEBAR (Slidebar_Expense)
+ * ========================================================= */
+.nvg-sidebar {
+  width: var(--nvg-sidebar-width);
+  height: 100vh;
+  background-color: var(--nvg-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar Logo Header (LOGO OMP - Height: 149px, #02284C) */
+.nvg-sidebar-logo {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 14px 14px;
+  gap: 12px;
+  width: 100%;
+  height: 149px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  transition: var(--nvg-transition);
+}
+
+.nvg-sidebar-logo .nvg-logo-svg {
+  width: 102px;
+  height: 68px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.nvg-sidebar-logo:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* OMP Submark Lockup (OM | OPERATION MANAGEMENT) */
+.nvg-omp-submark {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 102px;
+}
+
+.nvg-omp-code {
+  font-family: var(--nvg-font-sans);
+  font-weight: 900;
+  font-size: 21px;
+  line-height: 1;
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+}
+
+.nvg-omp-pipe {
+  width: 1.5px;
+  height: 22px;
+  background-color: #334759;
+  flex-shrink: 0;
+}
+
+.nvg-omp-labels {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.nvg-omp-labels span {
+  font-family: var(--nvg-font-brand);
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: #8E9189;
+  white-space: nowrap;
+}
+
+/* Sidebar Menu List (slide menu) */
+.nvg-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 10px 8px;
+  gap: 4px;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar for Sidebar */
+.nvg-sidebar-menu::-webkit-scrollbar {
+  width: 4px;
+}
+.nvg-sidebar-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* Menu Item (Menu_item_expense) */
+.nvg-menu-item {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 14px;
+  gap: 12px;
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  color: var(--nvg-sidebar-text-main);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--nvg-transition);
+  position: relative;
+}
+
+.nvg-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.nvg-menu-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.nvg-menu-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #FFFFFF;
+}
+
+.nvg-menu-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nvg-menu-label {
+  font-family: var(--nvg-font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: inherit;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nvg-menu-chevron {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--nvg-sidebar-chevron);
+  transition: transform 0.2s ease;
+}
+
+.nvg-menu-chevron svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.nvg-menu-group.open .nvg-menu-chevron {
+  transform: rotate(180deg);
+}
+
+/* Workspace / Section Divider Header (Frame 34822) */
+.nvg-menu-section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 14px 4px;
+  margin-top: 6px;
+  border-top: 1px solid var(--nvg-sidebar-border-divider);
+  width: 100%;
+}
+
+.nvg-section-title {
+  font-family: var(--nvg-font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  letter-spacing: 0.05em;
+  color: var(--nvg-sidebar-text-dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Submenu Accordion Container */
+.nvg-submenu {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 2px 0 4px;
+  gap: 2px;
+  width: 100%;
+}
+
+.nvg-menu-group.open .nvg-submenu {
+  display: flex;
+}
+
+/* Submenu Item (Menu_item_sub) */
+.nvg-submenu-item {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 14px 4px 48px;
+  gap: 12px;
+  width: 100%;
+  height: 36px;
+  color: var(--nvg-sidebar-text-muted);
+  text-decoration: none;
+  font-family: var(--nvg-font-sans);
+  font-weight: 500;
+  font-size: 13.5px;
+  line-height: 17px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: var(--nvg-transition);
+}
+
+.nvg-submenu-item:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Active Submenu Item (Exact Figma gradient #8BC141) */
+.nvg-submenu-item.active {
+  background: var(--nvg-sub-active-gradient);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 0;
+  border-left: 3px solid #8BC141;
+  padding-left: 45px;
+}
+
+/* Sidebar Bottom Footer (Frame 188) */
+.nvg-sidebar-footer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px 18px;
+  gap: 2px;
+  width: 100%;
+  height: 64px;
+  background-color: var(--nvg-sidebar-footer-bg);
+  border-top: 1px solid var(--nvg-sidebar-footer-border);
+  flex-shrink: 0;
+}
+
+.nvg-version-text {
+  font-family: var(--nvg-font-sans);
+  font-style: normal;
+  font-weight: 300;
+  font-size: 11.5px;
+  line-height: 18px;
+  color: var(--nvg-sidebar-text-footer);
+  white-space: nowrap;
+}
+
+/* =========================================================
+ * 2. TOP: STANDARD HEADER (HEADER 60px)
+ * ========================================================= */
+.nvg-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.nvg-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 16px;
+  width: 100%;
+  height: var(--nvg-header-height);
+  background: var(--nvg-header-bg);
+  border-bottom: 1px solid var(--nvg-header-border);
+  flex-shrink: 0;
+  z-index: 90;
+}
+
+/* Header Left: Toggle & Breadcrumb */
+.nvg-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Sidebar Toggle Button (Frame 28766) */
+.nvg-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #FFFFFF;
+  box-shadow: var(--nvg-shadow-toggle);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--nvg-transition);
+}
+
+.nvg-toggle-btn:hover {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.nvg-toggle-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: #090909;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Breadcrumb Navigation */
+.nvg-breadcrumb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nvg-breadcrumb-item {
+  font-family: var(--nvg-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #6B7280;
+  text-decoration: none;
+  transition: var(--nvg-transition);
+}
+
+.nvg-breadcrumb-item:hover {
+  color: #02284C;
+}
+
+.nvg-breadcrumb-separator {
+  color: #A9AFB5;
+  font-size: 12px;
+}
+
+.nvg-breadcrumb-item.current {
+  font-weight: 600;
+  color: #00112D;
+  pointer-events: none;
+}
+
+/* Header Right: Search, Notification, Profile (top left info) */
+.nvg-header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* Search Input Box (Input/TextInput 317px x 40px) */
+.nvg-search-box {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  width: 300px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid var(--nvg-search-border);
+  border-radius: 8px;
+  transition: var(--nvg-transition);
+}
+
+.nvg-search-box:focus-within {
+  border-color: #4279F6;
+  box-shadow: 0 0 0 3px rgba(66, 121, 246, 0.12);
+}
+
+.nvg-search-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nvg-search-placeholder);
+  flex-shrink: 0;
+}
+
+.nvg-search-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.nvg-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-family: var(--nvg-font-sans);
+  font-weight: 400;
+  font-size: 12.5px;
+  color: #1C212C;
+}
+
+.nvg-search-input::placeholder {
+  color: var(--nvg-search-placeholder);
+}
+
+/* Notification Button & Badge (Noti) */
+.nvg-noti-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--nvg-noti-icon-color);
+  transition: var(--nvg-transition);
+}
+
+.nvg-noti-btn:hover {
+  background: #F3F4F6;
+  color: #02284C;
+}
+
+.nvg-noti-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.nvg-noti-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  background: var(--nvg-noti-badge-bg);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--nvg-font-num);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  color: #FFFFFF;
+  box-shadow: 0 0 6px var(--nvg-noti-badge-glow);
+  border: 1.5px solid #FFFFFF;
+}
+
+/* User Profile with AM (Approval Matrix) Role Pill */
+.nvg-user-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--nvg-transition);
+}
+
+.nvg-user-profile:hover {
+  background: #F3F4F6;
+}
+
+.nvg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #02284C;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.nvg-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nvg-user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.nvg-user-name {
+  font-family: var(--nvg-font-sans);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--nvg-user-name);
+  white-space: nowrap;
+}
+
+.nvg-user-role-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nvg-user-role {
+  font-family: var(--nvg-font-sans);
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--nvg-user-role);
+  white-space: nowrap;
+}
+
+/* Approval Matrix (AM) Tag (Standard NVG Convention) */
+.nvg-am-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  background: #02284C;
+  color: #FFFFFF;
+  border-radius: 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(197, 155, 39, 0.4);
+}
+
+.nvg-user-chevron {
+  color: var(--nvg-user-chevron);
+  display: flex;
+  align-items: center;
+}
+
+.nvg-user-chevron svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+
+/* =========================================================
+ * 3. BOT: SYSTEM BOTTOM BAR (STATUS & AM SCOPE)
+ * ========================================================= */
+.nvg-botbar {
+  height: var(--nvg-botbar-height);
+  background: var(--nvg-botbar-bg);
+  border-top: 1px solid var(--nvg-botbar-border);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+  font-size: 11.5px;
+  color: var(--nvg-botbar-text);
+  z-index: 80;
+}
+
+.nvg-botbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nvg-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00AB55;
+  box-shadow: 0 0 6px #00AB55;
+}
+
+.nvg-botbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* =========================================================
+ * 4. CENTER: MAIN WORKSPACE CANVAS (EMPTY SHELL)
+ * ========================================================= */
+.nvg-main-canvas {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  background-color: var(--nvg-canvas-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.nvg-content-shell {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Empty State / Module Slot Container */
+.nvg-module-slot {
+  background: #FFFFFF;
+  border: 1px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  color: #64748B;
+  flex: 1;
+  min-height: 380px;
+  box-shadow: var(--nvg-shadow-card);
+}
+
+.nvg-slot-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: #EFF6FF;
+  color: #02284C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nvg-slot-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.nvg-slot-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #02284C;
+}
+
+.nvg-slot-desc {
+  font-size: 13.5px;
+  max-width: 520px;
+  line-height: 1.6;
+  color: #64748B;
+}
+
+.nvg-slot-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: #F1F5F9;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* =========================================================
+ * 5. COLLAPSED SIDEBAR STATE (.nvg-collapsed)
+ * ========================================================= */
+.nvg-app-layout.nvg-collapsed .nvg-sidebar {
+  width: var(--nvg-sidebar-width-collapsed);
+}
+
+.nvg-app-layout.nvg-collapsed .nvg-logo-meta,
+.nvg-app-layout.nvg-collapsed .nvg-omp-submark,
+.nvg-app-layout.nvg-collapsed .nvg-menu-label,
+.nvg-app-layout.nvg-collapsed .nvg-menu-chevron,
+.nvg-app-layout.nvg-collapsed .nvg-menu-section,
+.nvg-app-layout.nvg-collapsed .nvg-submenu,
+.nvg-app-layout.nvg-collapsed .nvg-version-text {
+  display: none !important;
+}
+
+.nvg-app-layout.nvg-collapsed .nvg-sidebar-logo {
+  height: 80px;
+  padding: 8px 4px;
+}
+
+.nvg-app-layout.nvg-collapsed .nvg-sidebar-logo .nvg-logo-svg {
+  width: 52px;
+  height: 35px;
+}
+
+.nvg-app-layout.nvg-collapsed .nvg-menu-item {
+  justify-content: center;
+  padding: 8px;
+}
+
+.nvg-app-layout.nvg-collapsed .nvg-sidebar-footer {
+  align-items: center;
+  padding: 12px 0;
+}
+
+/* =========================================================
+ * 6. RESPONSIVE BREAKPOINTS
+ * ========================================================= */
+@media (max-width: 992px) {
+  .nvg-search-box {
+    width: 200px;
+  }
+  .nvg-user-info {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nvg-sidebar {
+    position: fixed;
+    left: -220px;
+    height: 100vh;
+  }
+  
+  .nvg-app-layout.nvg-sidebar-open .nvg-sidebar {
+    left: 0;
+  }
+  
+  .nvg-search-box {
+    display: none;
+  }
+  
+  .nvg-botbar-right {
+    display: none;
+  }
+}
