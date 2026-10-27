@@ -15,7 +15,7 @@ def analyze_risks(body, config_path):
         raise ValueError('Cần hồ sơ đầu vào để AI đối chiếu.')
     sources, budget = {}, 90000
     for d in documents:
-        if not isinstance(d, dict) or not isinstance(d.get('id'), str) or not re.fullmatch(r'MA-DOC-[a-zA-Z0-9-]{1,80}', d['id']):
+        if not isinstance(d, dict) or not isinstance(d.get('id'), str) or not re.fullmatch(r'(?:MA-DOC-|IND-)[a-zA-Z0-9-]{1,80}', d['id']):
             raise ValueError('Mã tài liệu không hợp lệ.')
         for p in d.get('pages', []):
             if not isinstance(p.get('page'), int) or p['page'] < 1 or not isinstance(p.get('text'), str):
