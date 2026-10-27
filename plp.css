@@ -95,3 +95,8 @@ button,input,select,textarea{font:inherit}button,a,input,select,textarea{outline
 .ma-save-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;line-height:1.5;color:#8291A7;max-width:100%;white-space:normal}
 .ma-save-status::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
 .ma-save-status.saved{color:#568A2F}.ma-save-status.dirty,.ma-save-status.draft{color:#AC741B}.ma-save-status.error{color:#BA3444}
+.ma-approval-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.ma-approval-flow>div{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid #DFE5EB;border-radius:6px;background:#F7F9FB;color:#667286}
+.ma-approval-flow>div.active{background:#F4F8EC;border-color:#8BC141;color:#02284C}.ma-approval-flow>div.done{background:#EDF6E7;color:#547F2C}
+.ma-approval-flow span{font-size:12px}.ma-approval-comment{padding:16px 18px;background:#F7F9FB;border:1px solid #E1E6EC;border-radius:6px;margin:18px 0}
+.ma-approval-comment p{white-space:pre-wrap;line-height:1.7;margin:10px 0 0}@media(max-width:600px){.ma-approval-flow{grid-template-columns:1fr}}
