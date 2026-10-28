@@ -88,8 +88,6 @@ async function saveScannedDocument(){
 }
 async function downloadScannedOriginal(id){try{const result=await attachmentRequest('readonly',store=>store.get(id));if(!result?.file){toast('Không tìm thấy tệp gốc trong trình duyệt này.');return;}const a=document.createElement('a');a.href=URL.createObjectURL(result.file);a.download=result.file.name||'ho-so-scan';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}catch{toast('Không mở được tệp gốc trong trình duyệt này.');}}
 // Add scan metadata and the original file to the existing record detail panel.
-const openDetailBeforeScan=openDetail;
-openDetail=function(id){openDetailBeforeScan(id);const r=selected;if(!r||r.id!==id||!r.attachmentId)return;$('#overlay .drawer-body').insertAdjacentHTML('afterbegin',`<section class="detail-section scan-saved-detail"><h3>Thông tin hồ sơ đã scan</h3><dl class="detail-meta"><div><dt>Số / ký hiệu</dt><dd>${esc(r.documentNumber||'—')}</dd></div><div><dt>Ngày ban hành</dt><dd>${dateVN(r.issueDate)}</dd></div><div><dt>Cơ quan ban hành</dt><dd>${esc(r.issuer||'—')}</dd></div><div><dt>Nhóm pháp lý</dt><dd>${esc(r.category)}</dd></div></dl><button class="btn small" style="margin-top:15px" onclick="downloadScannedOriginal('${esc(r.attachmentId)}')">${icon('download')}${esc(r.sourceFileName)}</button><details class="scan-text-detail"><summary>Nội dung nhận dạng OCR</summary><pre>${esc(r.ocrText)}</pre></details></section>`);};
 function openScanRoute(){if(location.hash==='#scan')openScanDocument();}
 window.addEventListener('hashchange',openScanRoute);
 openScanRoute();
